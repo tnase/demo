@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Eleve index{% endblock %}
+
+{% block body %}
+    <h1>Eleve index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CodeEleve</th>
+                <th>Noms</th>
+                <th>Prenoms</th>
+                <th>DateNaissance</th>
+                <th>LieuNaissance</th>
+                <th>Parent</th>
+                <th>ProfessionParent</th>
+                <th>ContactParent</th>
+                <th>Sante</th>
+                <th>RegionOrigine</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for eleve in eleves %}
+            <tr>
+                <td>{{ eleve.id }}</td>
+                <td>{{ eleve.codeEleve }}</td>
+                <td>{{ eleve.noms }}</td>
+                <td>{{ eleve.prenoms }}</td>
+                <td>{{ eleve.dateNaissance ? eleve.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ eleve.lieuNaissance }}</td>
+                <td>{{ eleve.parent }}</td>
+                <td>{{ eleve.professionParent }}</td>
+                <td>{{ eleve.contactParent }}</td>
+                <td>{{ eleve.sante }}</td>
+                <td>{{ eleve.regionOrigine }}</td>
+                <td>
+                    <a href="{{ path('eleve_show', {'id': eleve.id}) }}">show</a>
+                    <a href="{{ path('eleve_edit', {'id': eleve.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('eleve_new') }}">Create new</a>
+{% endblock %}
