@@ -1,9 +1,7 @@
-<?php
+ <?php
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -73,16 +71,6 @@ class Eleve
      * @ORM\JoinColumn(nullable=false)
      */
     private $codeClasse;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="codeEleve")
-     */
-    private $paiements;
-
-    public function __construct()
-    {
-        $this->paiements = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -217,37 +205,6 @@ class Eleve
     public function setCodeClasse(?Classe $codeClasse): self
     {
         $this->codeClasse = $codeClasse;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Paiement[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paiements;
-    }
-
-    public function addPaiement(Paiement $paiement): self
-    {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setCodeEleve($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Paiement $paiement): self
-    {
-        if ($this->paiements->contains($paiement)) {
-            $this->paiements->removeElement($paiement);
-            // set the owning side to null (unless already changed)
-            if ($paiement->getCodeEleve() === $this) {
-                $paiement->setCodeEleve(null);
-            }
-        }
 
         return $this;
     }
